@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Maker</title>
+</head>
+<body>
+    <h1>Test maker</h1>
+    <h3>can create the test along your purpose</h3>
+    <div name="input">
+        <table border="1">
+            <tr>
+                <th>Questions</th> <th>Correct answer</th>
+            </tr>
+            <tr>
+                <td><input type="text" id="q1"></td> <td><input type="text" id="c1"></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="q2"></td> <td><input type="text" id="c2"></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="q3"></td> <td><input type="text" id="c3"></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="q4"></td> <td><input type="text" id="c4"></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="q5"></td> <td><input type="text" id="c5"></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="q6"></td> <td><input type="text" id="c6"></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="q7"></td> <td><input type="text" id="c7"></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="q8"></td> <td><input type="text" id="c8"></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="q9"></td> <td><input type="text" id="c9"></td>
+            </tr>
+            <tr>
+                <td><input type="text" id="q10"></td> <td><input type="text" id="c10"></td>
+            </tr>
+        </table>
+        <button onclick="apply()">apply</button><button onclick="save()">save</button><button onclick="load()">load</button>
+        <span style="color:#fbfbfb">hidden code:Press ctrl to save.<!--I'll glad that you tell me if you find any mistakes.--></span><br>
+        Scroll the page after clicking "apply" button.
+    </div>
+    <span style="font-size:100px;"><br><br><br><br><br></span>
+    <h3>The test <span style="font-weight:100;">Japanese judgement type</span></h3>
+    <div name="test">
+        <table border="1">
+            <tr>
+                <th>Questions</th> <th>Answer</th> <th>TF</th>
+            </tr>
+            <tr>
+                <td id="tq1"></td> <td><input type="text" id="a1"></td> <td id="j1"></td>
+            </tr>
+            <tr>
+                <td id="tq2"></td> <td><input type="text" id="a2"></td> <td id="j2"></td>
+            </tr>
+            <tr>
+                <td id="tq3"></td> <td><input type="text" id="a3"></td> <td id="j3"></td>
+            </tr>
+            <tr>
+                <td id="tq4"></td> <td><input type="text" id="a4"></td> <td id="j4"></td>
+            </tr>
+            <tr>
+                <td id="tq5"></td> <td><input type="text" id="a5"></td> <td id="j5"></td>
+            </tr>
+            <tr>
+                <td id="tq6"></td> <td><input type="text" id="a6"></td> <td id="j6"></td>
+            </tr>
+            <tr>
+                <td id="tq7"></td> <td><input type="text" id="a7"></td> <td id="j7"></td>
+            </tr>
+            <tr>
+                <td id="tq8"></td> <td><input type="text" id="a8"></td> <td id="j8"></td>
+            </tr>
+            <tr>
+                <td id="tq9"></td> <td><input type="text" id="a9"></td> <td id="j9"></td>
+            </tr>
+            <tr>
+                <td id="tq10"></td><td><input type="text" id="a10"></td><td id="j10"></td>
+            </tr>
+        </table>
+        <button onclick="judge()">judge</button>
+    </div>
+    <script>
+        let q1=document.getElementById("q1");
+        let q2=document.getElementById("q2");
+        let q3=document.getElementById("q3");
+        let q4=document.getElementById("q4");
+        let q5=document.getElementById("q5");
+        let q6=document.getElementById("q6");
+        let q7=document.getElementById("q7");
+        let q8=document.getElementById("q8");
+        let q9=document.getElementById("q9");
+        let q10=document.getElementById("q10");
+        let c1=document.getElementById("c1");
+        let c2=document.getElementById("c2");
+        let c3=document.getElementById("c3");
+        let c4=document.getElementById("c4");
+        let c5=document.getElementById("c5");
+        let c6=document.getElementById("c6");
+        let c7=document.getElementById("c7");
+        let c8=document.getElementById("c8");
+        let c9=document.getElementById("c9");
+        let c10=document.getElementById("c10");
+        let a1=document.getElementById("a1");
+        let a2=document.getElementById("a2");
+        let a3=document.getElementById("a3");
+        let a4=document.getElementById("a4");
+        let a5=document.getElementById("a5");
+        let a6=document.getElementById("a6");
+        let a7=document.getElementById("a7");
+        let a8=document.getElementById("a8");
+        let a9=document.getElementById("a9");
+        let a10=document.getElementById("a10");
+        let tq1=document.getElementById("tq1");
+        let tq2=document.getElementById("tq2");
+        let tq3=document.getElementById("tq3");
+        let tq4=document.getElementById("tq4");
+        let tq5=document.getElementById("tq5");
+        let tq6=document.getElementById("tq6");
+        let tq7=document.getElementById("tq7");
+        let tq8=document.getElementById("tq8");
+        let tq9=document.getElementById("tq9");
+        let tq10=document.getElementById("tq10");
+        let Q;
+        let C;
+        let TQ;
+        let A;
+        let J;
+        function read(){
+        Q=[q1.value,q2.value,q3.value,q4.value,q5.value,q6.value,q7.value,q8.value,q9.value,q10.value];
+        C=[c1.value,c2.value,c3.value,c4.value,c5.value,c6.value,c7.value,c8.value,c9.value,c10.value];
+        TQ=[tq1,tq2,tq3,tq4,tq5,tq6,tq7,tq8,tq9,tq10];
+        A=[a1.value,a2.value,a3.value,a4.value,a5.value,a6.value,a7.value,a8.value,a9.value,a10.value];
+        J=[j1,j2,j3,j4,j5,j6,j7,j8,j9,j10];
+        }
+        read();
+        function apply(){
+            read();
+            for(let i=0;i<10;i++){
+                TQ[i].innerHTML=Q[i];
+            }
+        }
+        let saveQ;
+        let saveC;
+        function save(){
+            read();
+            saveQ=JSON.stringify(Q);
+            saveC=JSON.stringify(C);
+            localStorage.setItem("saveQ",saveQ);
+            localStorage.setItem("saveC",saveC);
+        }
+        let loadQ;
+        let loadC;
+        function load(){
+            loadQ=JSON.parse(localStorage.getItem("saveQ"));
+            loadC=JSON.parse(localStorage.getItem("saveC"));
+            q1.value=loadQ[0];
+            q2.value=loadQ[1];
+            q3.value=loadQ[2];
+            q4.value=loadQ[3];
+            q5.value=loadQ[4];
+            q6.value=loadQ[5];
+            q7.value=loadQ[6];
+            q8.value=loadQ[7];
+            q9.value=loadQ[8];
+            q10.value=loadQ[9];
+            c1.value=loadC[0];
+            c2.value=loadC[1];
+            c3.value=loadC[2];
+            c4.value=loadC[3];
+            c5.value=loadC[4];
+            c6.value=loadC[5];
+            c7.value=loadC[6];
+            c8.value=loadC[7];
+            c9.value=loadC[8];
+            c10.value=loadC[9];
+        }
+        function judge(){
+            read()
+            for(let i=0;i<10;i++){
+                if(A[i]==C[i]&&C[i]!=""){
+                    J[i].innerText="O";
+                }else{
+                    J[i].innerText="X";
+                }
+            }
+        }
+        document.addEventListener("keydown", (e)=>{
+            let key=e.keyCode;
+            if(key==17)save();
+        });
+    </script>
+</body>
+</html>

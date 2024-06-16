@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Maker</title>
 </head>
-<body>
-    <h1>Test maker</h1>
+<body id="main">
+    <h1>Test maker</h1><button onclick="turnmode()">turn mode</button>
     <h3>can create the test along your purpose</h3>
     <div name="input">
         <table border="1">
@@ -50,6 +50,7 @@
     </div>
     <span style="font-size:100px;"><br><br><br><br><br></span>
     <h3>The test <span style="font-weight:100;">Japanese judgement type</span></h3>
+    <button onclick="loadAndApply()">load & apply</button> <button onclick="apply()">apply</button>
     <div name="test">
         <table border="1">
             <tr>
@@ -135,24 +136,30 @@
         let A;
         let J;
         function read(){
-        Q=[q1.value,q2.value,q3.value,q4.value,q5.value,q6.value,q7.value,q8.value,q9.value,q10.value];
-        C=[c1.value,c2.value,c3.value,c4.value,c5.value,c6.value,c7.value,c8.value,c9.value,c10.value];
+        Q=[q1,q2,q3,q4,q5,q6,q7,q8,q9,q10];
+        C=[c1,c2,c3,c4,c5,c6,c7,c8,c9,c10];
         TQ=[tq1,tq2,tq3,tq4,tq5,tq6,tq7,tq8,tq9,tq10];
-        A=[a1.value,a2.value,a3.value,a4.value,a5.value,a6.value,a7.value,a8.value,a9.value,a10.value];
+        A=[a1,a2,a3,a4,a5,a6,a7,a8,a9,a10];
         J=[j1,j2,j3,j4,j5,j6,j7,j8,j9,j10];
         }
         read();
         function apply(){
             read();
             for(let i=0;i<10;i++){
-                TQ[i].innerHTML=Q[i];
+                TQ[i].innerHTML=Q[i].value;
             }
         }
         let saveQ;
         let saveC;
         function save(){
             read();
+            for(let i=0;i<10;i++){
+                saveQ.push(Q[i].value);
+            }
             saveQ=JSON.stringify(Q);
+            for(let i=0;i<10;i++){
+                saveC.push(C[i].value);
+            }
             saveC=JSON.stringify(C);
             localStorage.setItem("saveQ",saveQ);
             localStorage.setItem("saveC",saveC);
@@ -186,16 +193,50 @@
         function judge(){
             read()
             for(let i=0;i<10;i++){
-                if(A[i]==C[i]&&C[i]!=""){
+                if(A[i].value==C[i].value&&C[i].value!=""){
                     J[i].innerText="O";
                 }else{
                     J[i].innerText="X";
                 }
             }
         }
+        let main=document.getElementById("main");
+        let mode=0;
+        function turnmode(){
+            if(mode==0){
+            main.style.color="#fff";
+            main.style.backgroundColor="#444";
+            mode=1;
+            for(let i=0;i<10;i++){
+                Q[i].style.color="#fff";
+                Q[i].style.backgroundColor="#999";
+                C[i].style.color="#fff";
+                C[i].style.backgroundColor="#999";
+                A[i].style.color="#fff";
+                A[i].style.backgroundColor="#999";
+            }
+            }else if(mode==1){
+            main.style.color="#000";
+            main.style.backgroundColor="#fff";
+            mode=0;
+            for(let i=0;i<10;i++){
+                Q[i].style.color="#000";
+                Q[i].style.backgroundColor="#fff";
+                C[i].style.color="#000";
+                C[i].style.backgroundColor="#fff";
+                A[i].style.color="#000";
+                A[i].style.backgroundColor="#fff";
+            }
+            }
+        }
+        function loadAndApply(){
+            load();
+            apply();
+        }
         document.addEventListener("keydown", (e)=>{
             let key=e.keyCode;
             if(key==17)save();
+            if(key==13)judge();
         });
     </script>
 </body>

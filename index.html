@@ -131,6 +131,7 @@
         let tq9=document.getElementById("tq9");
         let tq10=document.getElementById("tq10");
         let hiddenCode=document.getElementById("hiddenCode");
+        let mode=0;
         let Q;
         let C;
         let TQ;
@@ -208,23 +209,9 @@
             }
         }
         let main=document.getElementById("main");
-        let mode=0;
-        function turnmode(){
-            if(mode==0){
-            main.style.color="#fff";
-            main.style.backgroundColor="#222";
-            hiddenCode.style.color="#2b2b2b";
-            mode=1;
-            for(let i=0;i<10;i++){
-                Q[i].style.color="#fff";
-                Q[i].style.backgroundColor="#999";
-                C[i].style.color="#fff";
-                C[i].style.backgroundColor="#999";
-                A[i].style.color="#fff";
-                A[i].style.backgroundColor="#999";
-            }
-            }else if(mode==1){
-                //turn mode into default
+
+        function lightmode(){
+            //turn mode into default
             main.style.color="";
             main.style.backgroundColor="";
             hiddenCode.style.color="#fbfbfb";
@@ -237,13 +224,40 @@
                 A[i].style.color="";
                 A[i].style.backgroundColor="";
             }
+        }
+        function darkmode(){
+            main.style.color="#fff";
+            main.style.backgroundColor="#222";
+            hiddenCode.style.color="#2b2b2b";
+            mode=1;
+            for(let i=0;i<10;i++){
+                Q[i].style.color="#fff";
+                Q[i].style.backgroundColor="#999";
+                C[i].style.color="#fff";
+                C[i].style.backgroundColor="#999";
+                A[i].style.color="#fff";
+                A[i].style.backgroundColor="#999";
             }
+        }
+        function turnmode(){
+            if(mode==0){
+                darkmode();
+            }else if(mode==1){
+                lightmode();
+            }
+            localStorage.setItem("mode",mode);
         }
         function loadAndApply(){
             load();
             apply();
         }
-        document.addEventListener("keydown", (e)=>{
+        if(localStorage.getItem("mode"))mode=parseFloat(localStorage.getItem("mode"));
+        if(mode==0){
+            lightmode();
+        }else if(mode==1){
+            darkmode();
+        }
+            document.addEventListener("keydown", (e)=>{
             let key=e.keyCode;
             if(key==17)save();
             if(key==13)judge();

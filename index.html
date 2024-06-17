@@ -152,22 +152,28 @@
         }
         let saveQ;
         let saveC;
+        let saveQA=[];
+        let saveCA=[];
+
         function save(){
             read();
             for(let i=0;i<10;i++){
-                saveQ.push(Q[i].value);
+                saveQA.push(Q[i].value);
             }
-            saveQ=JSON.stringify(Q);
+            saveQ=JSON.stringify(saveQA);
             for(let i=0;i<10;i++){
-                saveC.push(C[i].value);
+                saveCA.push(C[i].value);
             }
-            saveC=JSON.stringify(C);
+            saveC=JSON.stringify(saveCA);
             localStorage.setItem("saveQ",saveQ);
             localStorage.setItem("saveC",saveC);
         }
-        let loadQ;
-        let loadC;
+
+        let loadQ=[];
+        let loadC=[];
+
         function load(){
+            read();
             loadQ=JSON.parse(localStorage.getItem("saveQ"));
             loadC=JSON.parse(localStorage.getItem("saveC"));
             q1.value=loadQ[0];

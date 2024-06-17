@@ -45,7 +45,7 @@
             </tr>
         </table>
         <button onclick="apply()">apply</button><button onclick="save()">save</button><button onclick="load()">load</button>
-        <span style="color:#fbfbfb">hidden code:Press ctrl to save.<!--I'll glad that you tell me if you find any mistakes.--></span><br>
+        <span style="color:#fbfbfb" id="hiddenCode">hidden code:Press ctrl to save.<!--I'll glad that you tell me if you find any mistakes.--></span><br>
         Scroll the page after clicking "apply" button.
     </div>
     <span style="font-size:100px;"><br><br><br><br><br></span>
@@ -130,6 +130,7 @@
         let tq8=document.getElementById("tq8");
         let tq9=document.getElementById("tq9");
         let tq10=document.getElementById("tq10");
+        let hiddenCode=document.getElementById("hiddenCode");
         let Q;
         let C;
         let TQ;
@@ -205,7 +206,8 @@
         function turnmode(){
             if(mode==0){
             main.style.color="#fff";
-            main.style.backgroundColor="#444";
+            main.style.backgroundColor="#222";
+            hiddenCode.style.color="#2b2b2b";
             mode=1;
             for(let i=0;i<10;i++){
                 Q[i].style.color="#fff";
@@ -216,16 +218,18 @@
                 A[i].style.backgroundColor="#999";
             }
             }else if(mode==1){
-            main.style.color="#000";
-            main.style.backgroundColor="#fff";
+                //turn mode into default
+            main.style.color="";
+            main.style.backgroundColor="";
+            hiddenCode.style.color="#fbfbfb";
             mode=0;
             for(let i=0;i<10;i++){
-                Q[i].style.color="#000";
-                Q[i].style.backgroundColor="#fff";
-                C[i].style.color="#000";
-                C[i].style.backgroundColor="#fff";
-                A[i].style.color="#000";
-                A[i].style.backgroundColor="#fff";
+                Q[i].style.color="";
+                Q[i].style.backgroundColor="";
+                C[i].style.color="";
+                C[i].style.backgroundColor="";
+                A[i].style.color="";
+                A[i].style.backgroundColor="";
             }
             }
         }

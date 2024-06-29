@@ -6,7 +6,10 @@
     <title>Test Maker</title>
 </head>
 <body id="main">
-    <h1>Test maker</h1><button onclick="turnmode()">turn mode</button>
+    <h1>Test maker</h1>
+    <!-- -->
+    <button onclick="turnmode()">turn mode</button>
+    <button onclick="sensitive()">turn case</button><span id="case">case insensitive</span>
     <h3>can create the test along your purpose</h3>
     <div name="input">
         <table border="1">
@@ -45,7 +48,7 @@
             </tr>
         </table>
         <button onclick="apply()">apply</button><button onclick="save()">save</button><button onclick="load()">load</button>
-        <span style="color:#fbfbfb" id="hiddenCode">hidden code:Press ctrl to save.<!--I'll glad that you tell me if you find any mistakes.--></span><br>
+        <span style="color:#fbfbfb" id="hiddenCode">hidden code1:Press ctrl to save.<!--I'll glad that you tell me if you find any mistakes.--></span><br>
         Scroll the page after clicking "apply" button.
     </div>
     <span style="font-size:100px;"><br><br><br><br><br></span>
@@ -132,6 +135,7 @@
         let tq10=document.getElementById("tq10");
         let hiddenCode=document.getElementById("hiddenCode");
         let mode=0;
+        let lettercase=0;
         let Q;
         let C;
         let TQ;
@@ -198,15 +202,29 @@
             c9.value=loadC[8];
             c10.value=loadC[9];
         }
+        
         function judge(){
             read()
+            if(lettercase==0){
             for(let i=0;i<10;i++){
-                if(A[i].value==C[i].value&&C[i].value!=""){
+                if(A[i].value.toLowerCase()==C[i].value.toLowerCase()){
                     J[i].innerText="O";
                 }else{
                     J[i].innerText="X";
                 }
             }
+        }else if(lettercase==1){
+            for(let i=0;i<10;i++){
+                if(A[i].value==C[i].value){
+                    J[i].innerText="O";
+                }else{
+                    J[i].innerText="X";
+                }
+            }
+        }
+        for(let i=0;i<10;i++){
+            if(Q[i].value=="mode=pink")pinkmode();
+        }
         }
         let main=document.getElementById("main");
 
@@ -239,10 +257,25 @@
                 A[i].style.backgroundColor="#999";
             }
         }
+        /* template
+            main.style.color="#";
+            main.style.backgroundColor="#";
+            hiddenCode.style.color="#";
+            mode=2;
+            for(let i=0;i<10;i++){
+                Q[i].style.color="#";
+                Q[i].style.backgroundColor="#";
+                C[i].style.color="#";
+                C[i].style.backgroundColor="#";
+                A[i].style.color="#";
+                A[i].style.backgroundColor="#";
+            }
+            localStorage.setItem("mode",mode);
+                */
         function turnmode(){
             if(mode==0){
                 darkmode();
-            }else if(mode==1){
+            }else{
                 lightmode();
             }
             localStorage.setItem("mode",mode);
@@ -252,16 +285,32 @@
             apply();
         }
         if(localStorage.getItem("mode"))mode=parseFloat(localStorage.getItem("mode"));
-        if(mode==0){
-            lightmode();
-        }else if(mode==1){
-            darkmode();
-        }
+            if(mode==0)lightmode();
+            else if(mode==1)darkmode();
             document.addEventListener("keydown", (e)=>{
             let key=e.keyCode;
             if(key==17)save();
             if(key==13)judge();
         });
+        let sensitiveCase=()=>{
+            lettercase=1;
+            document.getElementById("case").innerText="case sensitive";
+        }
+        let insensitiveCase=()=>{
+            lettercase=0;
+            document.getElementById("case").innerText="case insensitive";
+        }
+        function sensitive(){
+            if(lettercase==0){
+                sensitiveCase();
+            }else if(lettercase==1){
+                insensitiveCase();
+            }
+            localStorage.setItem("case",lettercase);
+        }
+        if(localStorage.getItem("case"))lettercase=parseFloat(localStorage.getItem("case"));
+        if(lettercase==0)insensitiveCase();
+        else if(lettercase==1)sensitiveCase();
     </script>
 </body>
 </html>

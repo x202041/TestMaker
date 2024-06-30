@@ -47,13 +47,19 @@
                 <td><input type="text" id="q10"></td> <td><input type="text" id="c10"></td>
             </tr>
         </table>
-        <button onclick="apply()">apply</button><button onclick="save()">save</button><button onclick="load()">load</button>
+        <button onclick="apply()">apply</button>
+        <button onclick="save()">save</button>
+        <button onclick="load()">load</button><br>
+        <button onclick="fileExport()">export to device</button><br>
+        inport from device<input type="file" id="inportfile">
         <span style="color:#fbfbfb" id="hiddenCode">hidden code1:Press ctrl to save.<!--I'll glad that you tell me if you find any mistakes.--></span><br>
         Scroll the page after clicking "apply" button.
     </div>
     <span style="font-size:100px;"><br><br><br><br><br></span>
     <h3>The test <span style="font-weight:100;">Japanese judgement type</span></h3>
-    <button onclick="loadAndApply()">load & apply</button> <button onclick="apply()">apply</button>
+    <button onclick="loadAndApply()">load & apply</button> 
+    <button onclick="apply()">apply</button>
+    <input type="file"" id="inportfile2">
     <div name="test">
         <table border="1">
             <tr>
@@ -134,6 +140,10 @@
         let tq9=document.getElementById("tq9");
         let tq10=document.getElementById("tq10");
         let hiddenCode=document.getElementById("hiddenCode");
+        let inportfile=document.getElementById("inportfile");
+
+
+
         let mode=0;
         let lettercase=0;
         let Q;
@@ -311,6 +321,87 @@
         if(localStorage.getItem("case"))lettercase=parseFloat(localStorage.getItem("case"));
         if(lettercase==0)insensitiveCase();
         else if(lettercase==1)sensitiveCase();
+        let inportdata;
+        let exportdata=[[],[]];
+        function fileExport(){
+            for(let i=0;i<10;i++){
+                exportdata[0].push(Q[i].value);
+                exportdata[1].push(C[i].value);
+            }
+            const blob=new Blob([JSON.stringify(exportdata)],{type:"text/planin"});
+            const link=document.createElement("a");
+            link.href=URL.createObjectURL(blob);
+            link.download="madetest.txt";
+            link.click();
+        }
+        inportfile.addEventListener("change",(e)=>{
+            const file=e.target.files[0];
+            const reader=new FileReader();
+            reader.onload=()=>{
+                inportdata=JSON.parse(reader.result);
+                for(let i=0;i<10;i++){
+                    loadQ[i]=inportdata[0][i];
+                    loadC[i]=inportdata[1][i];
+                }
+                read();
+                q1.value=loadQ[0];
+                q2.value=loadQ[1];
+                q3.value=loadQ[2];
+                q4.value=loadQ[3];
+                q5.value=loadQ[4];
+                q6.value=loadQ[5];
+                q7.value=loadQ[6];
+                q8.value=loadQ[7];
+                q9.value=loadQ[8];
+                q10.value=loadQ[9];
+                c1.value=loadC[0];
+                c2.value=loadC[1];
+                c3.value=loadC[2];
+                c4.value=loadC[3];
+                c5.value=loadC[4];
+                c6.value=loadC[5];
+                c7.value=loadC[6];
+                c8.value=loadC[7];
+                c9.value=loadC[8];
+                c10.value=loadC[9];
+            };
+            reader.readAsText(file);
+        });
+        let inportfile2=document.getElementById("inportfile2");
+        inportfile2.addEventListener("change",(e)=>{
+            const file=e.target.files[0];
+            const reader=new FileReader();
+            reader.onload=()=>{
+                inportdata=JSON.parse(reader.result);
+                for(let i=0;i<10;i++){
+                    loadQ[i]=inportdata[0][i];
+                    loadC[i]=inportdata[1][i];
+                }
+                read();
+                q1.value=loadQ[0];
+                q2.value=loadQ[1];
+                q3.value=loadQ[2];
+                q4.value=loadQ[3];
+                q5.value=loadQ[4];
+                q6.value=loadQ[5];
+                q7.value=loadQ[6];
+                q8.value=loadQ[7];
+                q9.value=loadQ[8];
+                q10.value=loadQ[9];
+                c1.value=loadC[0];
+                c2.value=loadC[1];
+                c3.value=loadC[2];
+                c4.value=loadC[3];
+                c5.value=loadC[4];
+                c6.value=loadC[5];
+                c7.value=loadC[6];
+                c8.value=loadC[7];
+                c9.value=loadC[8];
+                c10.value=loadC[9];
+                apply();
+            };
+            reader.readAsText(file);
+        });
     </script>
 </body>
 </html>

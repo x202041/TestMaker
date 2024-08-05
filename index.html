@@ -11,6 +11,7 @@
     <button onclick="turnmode()">turn mode</button>
     <button onclick="sensitive()">turn case</button><span id="case">case insensitive</span>
     <h3>can create the small test along your purpose</h3>
+    It's maybe good to use this page to prepare for tests.
     <div name="input">
         <table border="1">
             <tr>
@@ -100,7 +101,7 @@
                 <td id="tq10"></td><td><input type="text" id="a10"></td><td id="j10"></td>
             </tr>
         </table>
-        <button onclick="judge()">judge</button><span id="points"></span>
+        <button onclick="judge()">judge</button><span id="score"></span>
     </div>
     <script>
         let hiddenCode=document.getElementById("hiddenCode");
@@ -166,33 +167,35 @@
                 C[i].value=loadC[i];
             }
            }
-        
+        let point=0;
+        let maxpoints=0;
         function judge(){
             read()
-            var points=0;
+            point=0;
+            maxpoints=0;
             if(lettercase==0){
             for(let i=0;i<10;i++){
-                if(A[i].value.toLowerCase()==C[i].value.toLowerCase()){
+                if(A[i].value.toLowerCase()==C[i].value.toLowerCase()&&C[i].value){
                     J[i].innerText="O";
-                    points++;
-                }else{
+                    point++;
+                }else if(A[i].value.toLowerCase()!=C[i].value.toLowerCase()&&C[i].value){
                     J[i].innerText="X";
                 }
             }
         }else if(lettercase==1){
             for(let i=0;i<10;i++){
-                if(A[i].value==C[i].value){
+                if(A[i].value==C[i].value&&C[i].value){
                     J[i].innerText="O";
-                    points++;
-                }else{
+                    point++;
+                }else if(A[i].value!=C[i].value&&C[i].value){
                     J[i].innerText="X";
                 }
             }
-            document.getElementById("points").innerText=points+"/10";
         }
         for(let i=0;i<10;i++){
-            if(Q[i].value=="mode=pink")pinkmode();
-        }
+                if(C[i].value!="")maxpoints++;
+            }
+        document.getElementById("score").innerText="score:"+point+"/"+maxpoints;
         }
         let main=document.getElementById("main");
 

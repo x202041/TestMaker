@@ -10,7 +10,7 @@
     <!-- -->
     <button onclick="turnmode()">turn mode</button>
     <button onclick="sensitive()">turn case</button><span id="case">case insensitive</span>
-    <h3>can create the test along your purpose</h3>
+    <h3>can create the small test along your purpose</h3>
     <div name="input">
         <table border="1">
             <tr>
@@ -53,7 +53,11 @@
         <button onclick="fileExport()">export to device</button><br>
         inport from device<input type="file" id="inportfile">
         <span style="color:#fbfbfb" id="hiddenCode">hidden code1:Press ctrl to save.<!--I'll glad that you tell me if you find any mistakes.--></span><br>
-        Scroll the page after clicking "apply" button.
+        Scroll the page after clicking "apply" button. <span style="color:#fbfbfb" id="hiddenCode2">
+            hidden code2:Enter "Example" to first Question section to load an example. <br>
+            Also,
+        I'm sorry if the examples are not natural.
+        </span>
     </div>
     <span style="font-size:100px;"><br><br><br><br><br></span>
     <h3>The test <span style="font-weight:100;">Japanese judgement type</span></h3>
@@ -96,10 +100,11 @@
                 <td id="tq10"></td><td><input type="text" id="a10"></td><td id="j10"></td>
             </tr>
         </table>
-        <button onclick="judge()">judge</button>
+        <button onclick="judge()">judge</button><span id="points"></span>
     </div>
     <script>
         let hiddenCode=document.getElementById("hiddenCode");
+        let hiddenCode2=document.getElementById("hiddenCode2");
         let inportfile=document.getElementById("inportfile");
         let mode=0;
         let lettercase=0;
@@ -116,8 +121,16 @@
         J=[j1,j2,j3,j4,j5,j6,j7,j8,j9,j10];
         }
         read();
+        let ExQ=["加える","減算する","乗算する","Aで割る","確率","それは大部分を占める。","徐々に","以前はよく(do)していた","(doingや名詞)に慣れる","もはや"];
+        let ExC=["add","subtract","multiply","divided by A","probability","It accounts for the majority.","gradually","used to do","be used to doing","no longer"];
         function apply(){
             read();
+            if(Q[0].value=="Example"){
+                for(let i=0;i<10;i++){
+                    Q[i].value=ExQ[i];
+                    C[i].value=ExC[i];
+                }
+            }
             for(let i=0;i<10;i++){
                 TQ[i].innerHTML=Q[i].value;
             }
@@ -156,10 +169,12 @@
         
         function judge(){
             read()
+            var points=0;
             if(lettercase==0){
             for(let i=0;i<10;i++){
                 if(A[i].value.toLowerCase()==C[i].value.toLowerCase()){
                     J[i].innerText="O";
+                    points++;
                 }else{
                     J[i].innerText="X";
                 }
@@ -168,10 +183,12 @@
             for(let i=0;i<10;i++){
                 if(A[i].value==C[i].value){
                     J[i].innerText="O";
+                    points++;
                 }else{
                     J[i].innerText="X";
                 }
             }
+            document.getElementById("points").innerText=points+"/10";
         }
         for(let i=0;i<10;i++){
             if(Q[i].value=="mode=pink")pinkmode();
@@ -184,6 +201,7 @@
             main.style.color="";
             main.style.backgroundColor="";
             hiddenCode.style.color="#fbfbfb";
+            hiddenCode2.style.color="#fbfbfb";
             mode=0;
             for(let i=0;i<10;i++){
                 Q[i].style.color="";
@@ -198,6 +216,7 @@
             main.style.color="#fff";
             main.style.backgroundColor="#222";
             hiddenCode.style.color="#2b2b2b";
+            hiddenCode2.style.color="#2b2b2b";
             mode=1;
             for(let i=0;i<10;i++){
                 Q[i].style.color="#fff";
@@ -212,6 +231,7 @@
             main.style.color="#";
             main.style.backgroundColor="#";
             hiddenCode.style.color="#";
+            hiddenCode2.style.color="#";
             mode=2;
             for(let i=0;i<10;i++){
                 Q[i].style.color="#";

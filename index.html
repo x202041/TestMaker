@@ -27,7 +27,7 @@
         <span style="color:#fbfbfb" id="hiddenCode">hidden code1:Press ctrl to save.<!--I'll glad that you tell me if you find any mistakes.--></span><br>
         Scroll the page after clicking "apply" button. <span style="color:#fbfbfb" id="hiddenCode2">
             hidden code2:Enter "Example" to first Question section to load an example. <br>
-            Also,
+            <br> 
         I'm sorry if the examples are not natural.
         </span>
     </div>
@@ -35,7 +35,7 @@
     <h3>The test <span style="font-weight:100;">Japanese judgement type</span></h3>
     <button onclick="loadAndApply()">load & apply</button> 
     <button onclick="apply()">apply</button>
-    <input type="file"" id="inportfile2">
+    <input type="file" id="inportfile2">
     <div name="test">
         <table border="1" id="TQtable">
             <tr>
@@ -50,61 +50,78 @@
         let inportfile=document.getElementById("inportfile");
         let mode=0;
         let lettercase=0;
-        let Q;
-        let C;
-        let TQ;
-        let A;
-        let J;
+        let Q=[];
+        let C=[];
+        let TQ=[];
+        let A=[];
+        let J=[];
+        let NoQ=10;
+        // the Number of Question
         function createTables(){
             let Qtable=document.getElementById("Qtable");
             let Qrow=[];
             let QrowTd=[];
             let QrowTdInput=[];
+            Qtable.innerHTML="";
             //TQtable
             let TQtable=document.getElementById("TQtable");
             let TQrow=[];
             let TQrowTd=[];
             let TQrowTdInput=[];
-            for(let i=0;i<10;i++){
+            TQtable.innerHTML="";
+            for(let i=0;i<NoQ;i++){
                 Qrow[i]=document.createElement("tr");
                 QrowTd[i]=document.createElement("td");
-                QrowTd[i+10]=document.createElement("td");
+                QrowTd[i+NoQ]=document.createElement("td");
                 QrowTdInput[i]=document.createElement("input");
-                QrowTdInput[i+10]=document.createElement("input");
+                QrowTdInput[i+NoQ]=document.createElement("input");
                 QrowTdInput[i].type="text";
-                QrowTdInput[i+10].type="text";
+                QrowTdInput[i+NoQ].type="text";
                 QrowTdInput[i].id="q"+(i+1);
-                QrowTdInput[i+10].id="c"+(i+1);
+                QrowTdInput[i+NoQ].id="c"+(i+1);
                 QrowTd[i].appendChild(QrowTdInput[i]);
-                QrowTd[i+10].appendChild(QrowTdInput[i+10]);
+                QrowTd[i+NoQ].appendChild(QrowTdInput[i+NoQ]);
                 Qrow[i].appendChild(QrowTd[i]);
-                Qrow[i].appendChild(QrowTd[i+10]);
+                Qrow[i].appendChild(QrowTd[i+NoQ]);
                 Qtable.appendChild(Qrow[i]);
                 
                 TQrow[i]=document.createElement("tr");
                 TQrowTd[i]=document.createElement("td");
-                TQrowTd[i+10]=document.createElement("td");
-                TQrowTd[i+20]=document.createElement("td");
-                TQrowTdInput[i+10]=document.createElement("input");
-                TQrowTdInput[i+10].type="text";
+                TQrowTd[i+NoQ]=document.createElement("td");
+                TQrowTd[i+(2*NoQ)]=document.createElement("td");
+                TQrowTdInput[i+NoQ]=document.createElement("input");
+                TQrowTdInput[i+NoQ].type="text";
                 TQrowTd[i].id="tq"+(i+1);
-                TQrowTdInput[i+10].id="a"+(i+1);
-                TQrowTd[i+20].id="j"+(i+1);
-                TQrowTd[i+10].appendChild(TQrowTdInput[i+10]);
+                TQrowTdInput[i+NoQ].id="a"+(i+1);
+                TQrowTd[i+(2*NoQ)].id="j"+(i+1);
+                TQrowTd[i+NoQ].appendChild(TQrowTdInput[i+NoQ]);
                 TQrow[i].appendChild(TQrowTd[i]);
-                TQrow[i].appendChild(TQrowTd[i+10]);
-                TQrow[i].appendChild(TQrowTd[i+20]);
+                TQrow[i].appendChild(TQrowTd[i+NoQ]);
+                TQrow[i].appendChild(TQrowTd[i+(NoQ*2)]);
                 TQtable.appendChild(TQrow[i]);
                 
             }
         }
         createTables();
         function read(){
-        Q=[q1,q2,q3,q4,q5,q6,q7,q8,q9,q10];
-        C=[c1,c2,c3,c4,c5,c6,c7,c8,c9,c10];
-        TQ=[tq1,tq2,tq3,tq4,tq5,tq6,tq7,tq8,tq9,tq10];
-        A=[a1,a2,a3,a4,a5,a6,a7,a8,a9,a10];
-        J=[j1,j2,j3,j4,j5,j6,j7,j8,j9,j10];
+            Q=[];
+            C=[];
+            TQ=[];
+            A=[];
+            J=[];
+            for(let i=0;i<NoQ;i++){
+                Q.push(eval(`q${i+1}`));
+                C.push(eval(`c${i+1}`));
+                TQ.push(eval(`tq${i+1}`));
+                A.push(eval(`a${i+1}`));
+                J.push(eval(`j${i+1}`));
+            }
+        //Q=[q1,q2,q3,q4,q5,q6,q7,q8,q9,q10];
+        //C=[c1,c2,c3,c4,c5,c6,c7,c8,c9,c10];
+        //TQ=[tq1,tq2,tq3,tq4,tq5,tq6,tq7,tq8,tq9,tq10];
+        //A=[a1,a2,a3,a4,a5,a6,a7,a8,a9,a10];
+        //J=[j1,j2,j3,j4,j5,j6,j7,j8,j9,j10];
+        
         }
         read();
         let ExQ=["加える","減算する","乗算する","Aで割る","確率","それは大部分を占める。","徐々に","以前はよく(do)していた","(doingや名詞)に慣れる","もはや"];
@@ -112,12 +129,13 @@
         function apply(){
             read();
             if(Q[0].value=="Example"){
-                for(let i=0;i<10;i++){
+                for(let i=0;i<NoQ;i++){
                     Q[i].value=ExQ[i];
                     C[i].value=ExC[i];
                 }
             }
-            for(let i=0;i<10;i++){
+            
+            for(let i=0;i<NoQ;i++){
                 TQ[i].innerHTML=Q[i].value;
             }
         }
@@ -128,11 +146,11 @@
 
         function save(){
             read();
-            for(let i=0;i<10;i++){
+            for(let i=0;i<NoQ;i++){
                 saveQA.push(Q[i].value);
             }
             saveQ=JSON.stringify(saveQA);
-            for(let i=0;i<10;i++){
+            for(let i=0;i<NoQ;i++){
                 saveCA.push(C[i].value);
             }
             saveC=JSON.stringify(saveCA);
@@ -147,7 +165,7 @@
             read();
             loadQ=JSON.parse(localStorage.getItem("saveQ"));
             loadC=JSON.parse(localStorage.getItem("saveC"));
-            for(let i=0;i<10;i++){
+            for(let i=0;i<NoQ;i++){
                 Q[i].value=loadQ[i];
                 C[i].value=loadC[i];
             }
@@ -159,7 +177,7 @@
             point=0;
             maxpoints=0;
             if(lettercase==0){
-            for(let i=0;i<10;i++){
+            for(let i=0;i<NoQ;i++){
                 if(A[i].value.toLowerCase()==C[i].value.toLowerCase()&&C[i].value){
                     J[i].innerText="O";
                     point++;
@@ -168,7 +186,7 @@
                 }
             }
         }else if(lettercase==1){
-            for(let i=0;i<10;i++){
+            for(let i=0;i<NoQ;i++){
                 if(A[i].value==C[i].value&&C[i].value){
                     J[i].innerText="O";
                     point++;
@@ -177,7 +195,7 @@
                 }
             }
         }
-        for(let i=0;i<10;i++){
+        for(let i=0;i<NoQ;i++){
                 if(C[i].value!="")maxpoints++;
             }
             let scoreStr="score:"+point+"/"+maxpoints;
@@ -193,7 +211,7 @@
             hiddenCode.style.color="#fbfbfb";
             hiddenCode2.style.color="#fbfbfb";
             mode=0;
-            for(let i=0;i<10;i++){
+            for(let i=0;i<NoQ;i++){
                 Q[i].style.color="";
                 Q[i].style.backgroundColor="";
                 C[i].style.color="";
@@ -208,7 +226,7 @@
             hiddenCode.style.color="#2b2b2b";
             hiddenCode2.style.color="#2b2b2b";
             mode=1;
-            for(let i=0;i<10;i++){
+            for(let i=0;i<NoQ;i++){
                 Q[i].style.color="#fff";
                 Q[i].style.backgroundColor="#999";
                 C[i].style.color="#fff";
@@ -259,7 +277,7 @@
         let inportdata;
         let exportdata=[[],[]];
         function fileExport(){
-            for(let i=0;i<10;i++){
+            for(let i=0;i<NoQ;i++){
                 exportdata[0].push(Q[i].value);
                 exportdata[1].push(C[i].value);
             }
@@ -274,12 +292,12 @@
             const reader=new FileReader();
             reader.onload=()=>{
                 inportdata=JSON.parse(reader.result);
-                for(let i=0;i<10;i++){
+                for(let i=0;i<NoQ;i++){
                     loadQ[i]=inportdata[0][i];
                     loadC[i]=inportdata[1][i];
                 }
                 read();
-                for(let i=0;i<10;i++){
+                for(let i=0;i<NoQ;i++){
                     Q[i].value=loadQ[i];
                     C[i].value=loadC[i];
                 }
@@ -292,12 +310,12 @@
             const reader=new FileReader();
             reader.onload=()=>{
                 inportdata=JSON.parse(reader.result);
-                for(let i=0;i<10;i++){
+                for(let i=0;i<NoQ;i++){
                     loadQ[i]=inportdata[0][i];
                     loadC[i]=inportdata[1][i];
                 }
                 read();
-                for(let i=0;i<10;i++){
+                for(let i=0;i<NoQ;i++){
                     Q[i].value=loadQ[i];
                     C[i].value=loadC[i];
                 }
@@ -306,7 +324,7 @@
             reader.readAsText(file);
         });
         function reset(){
-            for(let i=0;i<10;i++){
+            for(let i=0;i<NoQ;i++){
                 Q[i].value="";
                 C[i].value="";
                 TQ[i].innerHTML="";

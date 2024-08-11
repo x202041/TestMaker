@@ -7,50 +7,21 @@
 </head>
 <body id="main">
     <h1>Test maker</h1>
-    <!-- -->
     <button onclick="turnmode()">turn mode</button>
     <button onclick="sensitive()">turn case</button><span id="case">case insensitive</span>
     <h3>can create the small test along your purpose</h3>
     It's maybe good to use this page to prepare for tests.
     <div name="input">
-        <table border="1">
+        <table border="1" id="Qtable">
             <tr>
                 <th>Questions</th> <th>Correct answer</th>
-            </tr>
-            <tr>
-                <td><input type="text" id="q1"></td> <td><input type="text" id="c1"></td>
-            </tr>
-            <tr>
-                <td><input type="text" id="q2"></td> <td><input type="text" id="c2"></td>
-            </tr>
-            <tr>
-                <td><input type="text" id="q3"></td> <td><input type="text" id="c3"></td>
-            </tr>
-            <tr>
-                <td><input type="text" id="q4"></td> <td><input type="text" id="c4"></td>
-            </tr>
-            <tr>
-                <td><input type="text" id="q5"></td> <td><input type="text" id="c5"></td>
-            </tr>
-            <tr>
-                <td><input type="text" id="q6"></td> <td><input type="text" id="c6"></td>
-            </tr>
-            <tr>
-                <td><input type="text" id="q7"></td> <td><input type="text" id="c7"></td>
-            </tr>
-            <tr>
-                <td><input type="text" id="q8"></td> <td><input type="text" id="c8"></td>
-            </tr>
-            <tr>
-                <td><input type="text" id="q9"></td> <td><input type="text" id="c9"></td>
-            </tr>
-            <tr>
-                <td><input type="text" id="q10"></td> <td><input type="text" id="c10"></td>
             </tr>
         </table>
         <button onclick="apply()">apply</button>
         <button onclick="save()">save</button>
-        <button onclick="load()">load</button><br>
+        <button onclick="load()">load</button>
+        <button onclick="reset()">reset</button>
+        <br>
         <button onclick="fileExport()">export to device</button><br>
         inport from device<input type="file" id="inportfile">
         <span style="color:#fbfbfb" id="hiddenCode">hidden code1:Press ctrl to save.<!--I'll glad that you tell me if you find any mistakes.--></span><br>
@@ -66,39 +37,9 @@
     <button onclick="apply()">apply</button>
     <input type="file"" id="inportfile2">
     <div name="test">
-        <table border="1">
+        <table border="1" id="TQtable">
             <tr>
                 <th>Questions</th> <th>Answer</th> <th>TF</th>
-            </tr>
-            <tr>
-                <td id="tq1"></td> <td><input type="text" id="a1"></td> <td id="j1"></td>
-            </tr>
-            <tr>
-                <td id="tq2"></td> <td><input type="text" id="a2"></td> <td id="j2"></td>
-            </tr>
-            <tr>
-                <td id="tq3"></td> <td><input type="text" id="a3"></td> <td id="j3"></td>
-            </tr>
-            <tr>
-                <td id="tq4"></td> <td><input type="text" id="a4"></td> <td id="j4"></td>
-            </tr>
-            <tr>
-                <td id="tq5"></td> <td><input type="text" id="a5"></td> <td id="j5"></td>
-            </tr>
-            <tr>
-                <td id="tq6"></td> <td><input type="text" id="a6"></td> <td id="j6"></td>
-            </tr>
-            <tr>
-                <td id="tq7"></td> <td><input type="text" id="a7"></td> <td id="j7"></td>
-            </tr>
-            <tr>
-                <td id="tq8"></td> <td><input type="text" id="a8"></td> <td id="j8"></td>
-            </tr>
-            <tr>
-                <td id="tq9"></td> <td><input type="text" id="a9"></td> <td id="j9"></td>
-            </tr>
-            <tr>
-                <td id="tq10"></td><td><input type="text" id="a10"></td><td id="j10"></td>
             </tr>
         </table>
         <button onclick="judge()">judge</button><span id="score"></span>
@@ -114,6 +55,50 @@
         let TQ;
         let A;
         let J;
+        function createTables(){
+            let Qtable=document.getElementById("Qtable");
+            let Qrow=[];
+            let QrowTd=[];
+            let QrowTdInput=[];
+            //TQtable
+            let TQtable=document.getElementById("TQtable");
+            let TQrow=[];
+            let TQrowTd=[];
+            let TQrowTdInput=[];
+            for(let i=0;i<10;i++){
+                Qrow[i]=document.createElement("tr");
+                QrowTd[i]=document.createElement("td");
+                QrowTd[i+10]=document.createElement("td");
+                QrowTdInput[i]=document.createElement("input");
+                QrowTdInput[i+10]=document.createElement("input");
+                QrowTdInput[i].type="text";
+                QrowTdInput[i+10].type="text";
+                QrowTdInput[i].id="q"+(i+1);
+                QrowTdInput[i+10].id="c"+(i+1);
+                QrowTd[i].appendChild(QrowTdInput[i]);
+                QrowTd[i+10].appendChild(QrowTdInput[i+10]);
+                Qrow[i].appendChild(QrowTd[i]);
+                Qrow[i].appendChild(QrowTd[i+10]);
+                Qtable.appendChild(Qrow[i]);
+                
+                TQrow[i]=document.createElement("tr");
+                TQrowTd[i]=document.createElement("td");
+                TQrowTd[i+10]=document.createElement("td");
+                TQrowTd[i+20]=document.createElement("td");
+                TQrowTdInput[i+10]=document.createElement("input");
+                TQrowTdInput[i+10].type="text";
+                TQrowTd[i].id="tq"+(i+1);
+                TQrowTdInput[i+10].id="a"+(i+1);
+                TQrowTd[i+20].id="j"+(i+1);
+                TQrowTd[i+10].appendChild(TQrowTdInput[i+10]);
+                TQrow[i].appendChild(TQrowTd[i]);
+                TQrow[i].appendChild(TQrowTd[i+10]);
+                TQrow[i].appendChild(TQrowTd[i+20]);
+                TQtable.appendChild(TQrow[i]);
+                
+            }
+        }
+        createTables();
         function read(){
         Q=[q1,q2,q3,q4,q5,q6,q7,q8,q9,q10];
         C=[c1,c2,c3,c4,c5,c6,c7,c8,c9,c10];
@@ -195,7 +180,9 @@
         for(let i=0;i<10;i++){
                 if(C[i].value!="")maxpoints++;
             }
-        document.getElementById("score").innerText="score:"+point+"/"+maxpoints;
+            let scoreStr="score:"+point+"/"+maxpoints;
+        if(maxpoints==point&&maxpoints!=0)scoreStr+=" Perfect!!";
+        document.getElementById("score").innerText=scoreStr;
         }
         let main=document.getElementById("main");
 
@@ -230,22 +217,6 @@
                 A[i].style.backgroundColor="#999";
             }
         }
-        /* template
-            main.style.color="#";
-            main.style.backgroundColor="#";
-            hiddenCode.style.color="#";
-            hiddenCode2.style.color="#";
-            mode=2;
-            for(let i=0;i<10;i++){
-                Q[i].style.color="#";
-                Q[i].style.backgroundColor="#";
-                C[i].style.color="#";
-                C[i].style.backgroundColor="#";
-                A[i].style.color="#";
-                A[i].style.backgroundColor="#";
-            }
-            localStorage.setItem("mode",mode);
-                */
         function turnmode(){
             if(mode==0){
                 darkmode();
@@ -334,6 +305,15 @@
             };
             reader.readAsText(file);
         });
+        function reset(){
+            for(let i=0;i<10;i++){
+                Q[i].value="";
+                C[i].value="";
+                TQ[i].innerHTML="";
+                A[i].value="";
+                J[i].innerHTML="";
+            }
+        }
     </script>
 </body>
 </html>

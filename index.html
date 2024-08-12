@@ -62,13 +62,11 @@
             let Qrow=[];
             let QrowTd=[];
             let QrowTdInput=[];
-            Qtable.innerHTML="";
             //TQtable
             let TQtable=document.getElementById("TQtable");
             let TQrow=[];
             let TQrowTd=[];
             let TQrowTdInput=[];
-            TQtable.innerHTML="";
             for(let i=0;i<NoQ;i++){
                 Qrow[i]=document.createElement("tr");
                 QrowTd[i]=document.createElement("td");
@@ -116,12 +114,6 @@
                 A.push(eval(`a${i+1}`));
                 J.push(eval(`j${i+1}`));
             }
-        //Q=[q1,q2,q3,q4,q5,q6,q7,q8,q9,q10];
-        //C=[c1,c2,c3,c4,c5,c6,c7,c8,c9,c10];
-        //TQ=[tq1,tq2,tq3,tq4,tq5,tq6,tq7,tq8,tq9,tq10];
-        //A=[a1,a2,a3,a4,a5,a6,a7,a8,a9,a10];
-        //J=[j1,j2,j3,j4,j5,j6,j7,j8,j9,j10];
-        
         }
         read();
         let ExQ=["加える","減算する","乗算する","Aで割る","確率","それは大部分を占める。","徐々に","以前はよく(do)していた","(doingや名詞)に慣れる","もはや"];

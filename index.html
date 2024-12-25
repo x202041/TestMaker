@@ -6,15 +6,15 @@
     <title>Test Maker</title>
 </head>
 <body id="main">
-    <h1>Test maker</h1>
+    <h1>Test Maker</h1>
     <button onclick="turnmode()">turn mode</button>
     <button onclick="sensitive()">turn case</button><span id="case">case insensitive</span>
-    <h3>can create the small test along your purpose</h3>
-    It's maybe good to use this page to prepare for tests.
+    <br>You can create a small test along your purpose. <br>
+    Anyone can use in just common sence.
     <div name="input">
         <table border="1" id="Qtable">
             <tr>
-                <th>Questions</th> <th>Correct answer</th>
+                <th><span title="Enter words to be shown">Questions</span></th> <th><span title="Enter words to memorize">Correct answer</span></th>
             </tr>
         </table>
         <button onclick="apply()">apply</button>
@@ -26,9 +26,7 @@
         inport from device<input type="file" id="inportfile">
         <span style="color:#fbfbfb" id="hiddenCode">hidden code1:Press ctrl to save.<!--I'll glad that you tell me if you find any mistakes.--></span><br>
         Scroll the page after clicking "apply" button. <span style="color:#fbfbfb" id="hiddenCode2">
-            hidden code2:Enter "Example" to first Question section to load an example. <br>
-            <br> 
-        I'm sorry if the examples are not natural.
+            hidden code2:Enter "Example" to first Question section to load an example.
         </span>
     </div>
     <span style="font-size:100px;"><br><br><br><br><br></span>
@@ -39,7 +37,7 @@
     <div name="test">
         <table border="1" id="TQtable">
             <tr>
-                <th>Questions</th> <th>Answer</th> <th>TF</th>
+                <th>Questions</th> <th><span title="Enter the words you memorized">Answer</span></th> <th><span title="(if correct)O,(incorrect)X in Japanese type">Jdg</span></th>
             </tr>
         </table>
         <button onclick="judge()">judge</button><span id="score"></span>
@@ -55,7 +53,8 @@
         let TQ=[];
         let A=[];
         let J=[];
-        let NoQ=10;
+        let NoQ=20;
+        console.log("one of the Extreme hidden fact is that Number of Questions become the NoQ value.")
         // the Number of Question
         function createTables(){
             let Qtable=document.getElementById("Qtable");
@@ -68,6 +67,13 @@
             let TQrowTd=[];
             let TQrowTdInput=[];
             for(let i=0;i<NoQ;i++){
+                /*create elements, add attributes
+                QrowTdInput contents [question1,q2, ... ,correct1,c2 ...]
+                the above causes [i+NoQ] (corrects are placed from NoQ).
+
+                let any+(i+1) to order from 1 not 0.
+                Td means Table data, Input means it can be input by user.
+                */
                 Qrow[i]=document.createElement("tr");
                 QrowTd[i]=document.createElement("td");
                 QrowTd[i+NoQ]=document.createElement("td");
@@ -116,8 +122,8 @@
             }
         }
         read();
-        let ExQ=["加える","減算する","乗算する","Aで割る","確率","それは大部分を占める。","徐々に","以前はよく(do)していた","(doingや名詞)に慣れる","もはや"];
-        let ExC=["add","subtract","multiply","divided by A","probability","It accounts for the majority.","gradually","used to do","be used to doing","no longer"];
+        let ExQ=["恩恵","利益","好み","を防ぐ","を巻き込む","実例","徐々に","以前は(do)していた","~に慣れる","機会","を予約する","~を保存する","最近の","~とは異なる","~で有名","~の間で有名","~を避ける","~のままである,残る","心配事,(受動で)心配する","調査"];
+        let ExC=["benfit","profit","preference","prevent","involve","instance","gradually","used to do","be used to","opportunity","reserve","preserve","recent","different from","famous for","famous among","avoid","remain","concern","survey"];
         function apply(){
             read();
             if(Q[0].value=="Example"){
@@ -188,7 +194,7 @@
             }
         }
         for(let i=0;i<NoQ;i++){
-                if(C[i].value!="")maxpoints++;
+                if(C[i].value!=""&&C[i].value!="undefined")maxpoints++;
             }
             let scoreStr="score:"+point+"/"+maxpoints;
         if(maxpoints==point&&maxpoints!=0)scoreStr+=" Perfect!!";
